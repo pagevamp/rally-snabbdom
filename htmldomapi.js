@@ -16,8 +16,15 @@ function insertBefore(parentNode, newNode, referenceNode) {
     try {
         parentNode.insertBefore(newNode, referenceNode);
     } catch (e) {
+        try {
+            const childNode = parentNode.firstChild
+            parentNode.insertBefore(newNode, childNode)
+            parentNode.removeChild(childNode)
+        } catch (e) {
+            //
+        }
         console.clear();
-        console.warn('snabbdom DOM error', {
+        console.warn('snabbdom DOM insertBefore error', {
             parentNode, newNode, referenceNode
         })
     }
